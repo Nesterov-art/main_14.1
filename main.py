@@ -6,39 +6,37 @@ if __name__ == "__main__":
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
 
-    print(product1.name)
-    print(product1.description)
-    print(product1.price)
-    print(product1.quantity)
-
-    print(product2.name)
-    print(product2.description)
-    print(product2.price)
-    print(product2.quantity)
-
-    print(product3.name)
-    print(product3.description)
-    print(product3.price)
-    print(product3.quantity)
 
     category1 = Category("Смартфоны",
-                         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-                         [product1, product2, product3])
+                         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни")
 
-    print(category1.name == "Смартфоны")
+    category1.add_product(product1)
+    category1.add_product(product2)
+    category1.add_product(product3)
+
+
+    print(category1.name)
     print(category1.description)
-    print(len(category1.products))
+    print(category1.products)
     print(Category.category_count)
     print(Category.product_count)
 
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+
+    product_data = {"name": "55\" QLED 4K", "description": "Фоновая подсветка", "price": 123000.0, "quantity": 7}
+    product4 = Product.new_product(product_data)
+
+
     category2 = Category("Телевизоры",
-                         "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
-                         [product4])
+                         "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником")
+
+    category2.add_product(product4)
 
     print(category2.name)
     print(category2.description)
-    print(len(category2.products))
     print(category2.products)
     print(Category.category_count)
     print(Category.product_count)
+
+
+    product4.price = -5000
+    print(product4.price)
