@@ -5,29 +5,25 @@ from src.category import Category
 
 @pytest.fixture(autouse=True)
 def reset_category_counts():
+    """Сбрасывает счетчики перед каждым тестом"""
     Category.category_count = 0
     Category.product_count = 0
 
 
-def test_category_and_product_count():
-    product1 = Product("Product1", "Desc1", 50.0, 5)
-    product2 = Product("Product2", "Desc2", 75.0, 3)
+def test_add_valid_product():
+    """Проверяет добавление корректного товара"""
+    category = Category("Смартфоны", "Категория смартфонов")
+    product = Product("iPhone", "Флагманский смартфон", 100000.0, 10)
 
-    category1 = Category("Category1", "Description1", [product1])
-    category2 = Category("Category2", "Description2", [product2])
+    category.add_product(product)
 
-    assert Category.category_count == 2
-    assert Category.product_count == 2
+    assert len(category.products) == 1
+    assert "iPhone, 100000.0 руб. Остаток: 10 шт." in category.products
 
 
-def test_category_initialization():
-    product1 = Product("Product1", "Desc1", 50.0, 5)
-    product2 = Product("Product2", "Desc2", 75.0, 3)
+def test_add_invalid_product():
+    """Проверяет, что нельзя добавить объект не типа Product"""
+    category = Category("Телевизоры", "Категория телевизоров")
 
-    category = Category("Test Category", "Category Description", [product1, product2])
-
-    assert category.name == "Test Category"
-    assert category.description == "Category Description"
-    assert len(category.products) == 2
-    assert category.products[0] is product1
-    assert category.products[1] is product2
+    with pytest.raises(TypeError, match="Можно добавлять только объекты класса Product или его наследников"):
+        category.add_product("не продукт")  # Передаем строку вместо объекта Product
