@@ -27,3 +27,22 @@ def test_add_invalid_product():
 
     with pytest.raises(TypeError, match="Можно добавлять только объекты класса Product или его наследников"):
         category.add_product("не продукт")  # Передаем строку вместо объекта Product
+
+def test_category_str():
+    p1 = Product("A", "desc", 100, 10)
+    p2 = Product("B", "desc", 200, 5)
+    cat = Category("Электроника", "Описание", [p1, p2])
+    assert str(cat) == "Электроника, количество продуктов: 15 шт."
+
+
+
+def test_category_products_str():
+    p1 = Product("Test1", "desc", 150, 1)
+    p2 = Product("Test2", "desc", 200, 3)
+    cat = Category("Смартфоны", "desc", [p1, p2])
+    products = [str(p) for p in cat.products]
+    assert products == [
+        "Test1, 150 руб. Остаток: 1 шт.",
+        "Test2, 200 руб. Остаток: 3 шт."
+    ]
+

@@ -8,7 +8,7 @@ class Category:
     def __init__(self, name: str, description: str):
         self.name = name
         self.description = description
-        self.__products = []  # Приватный список товаров
+        self.__products = []
 
         Category.category_count += 1
 
@@ -24,3 +24,12 @@ class Category:
     def products(self):
         """Возвращает список товаров в отформатированном виде"""
         return [f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт." for p in self.__products]
+
+    def __str__(self):
+        total_quantity = sum(product.quantity for product in self.products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
+
+product1 = Product("Товар A", "Описание", 100, 10)
+product2 = Product("Товар B", "Описание", 200, 2)
+
+print(product1 + product2)

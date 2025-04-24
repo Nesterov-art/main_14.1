@@ -34,3 +34,20 @@ def test_product_price_setter():
 
     product.price = 0
     assert product.price == 45000.0
+
+def test_product_str():
+    product = Product("Тестовый товар", "Описание", 100.0, 10)
+    assert str(product) == "Тестовый товар, 100 руб. Остаток: 10 шт."
+
+def test_product_add():
+    a = Product("A", "desc", 100, 10)  # 1000
+    b = Product("B", "desc", 200, 2)   # 400
+    assert a + b == 1400
+
+def test_product_add_typeerror():
+    a = Product("A", "desc", 100, 10)
+    try:
+        _ = a + 5  # не Product
+        assert False, "TypeError должен быть вызван"
+    except TypeError:
+        assert True
