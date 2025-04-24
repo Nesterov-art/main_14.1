@@ -24,3 +24,13 @@ class Product:
             price=product_data["price"],
             quantity=product_data["quantity"],
         )
+
+    def __str__(self):
+        return f"{self.name}, {self.price:.0f} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        if isinstance(other, Product):
+            total_self = self.price * self.quantity
+            total_other = other.price * other.quantity
+            return total_self + total_other
+        raise TypeError("Складывать можно только с другим продуктом")
