@@ -1,14 +1,17 @@
 from src.product import Product
 
-
 class Category:
     category_count = 0
     product_count = 0
 
-    def __init__(self, name: str, description: str):
+    def __init__(self, name: str, description: str, products=None):
         self.name = name
         self.description = description
         self.__products = []
+
+        if products is not None:
+            for product in products:
+                self.add_product(product)
 
         Category.category_count += 1
 
@@ -26,10 +29,5 @@ class Category:
         return [f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт." for p in self.__products]
 
     def __str__(self):
-        total_quantity = sum(product.quantity for product in self.products)
+        total_quantity = sum(p.quantity for p in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
-
-product1 = Product("Товар A", "Описание", 100, 10)
-product2 = Product("Товар B", "Описание", 200, 2)
-
-print(product1 + product2)

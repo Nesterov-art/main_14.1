@@ -1,3 +1,4 @@
+import pytest
 from src.product import Product
 
 
@@ -46,8 +47,5 @@ def test_product_add():
 
 def test_product_add_typeerror():
     a = Product("A", "desc", 100, 10)
-    try:
-        _ = a + 5  # не Product
-        assert False, "TypeError должен быть вызван"
-    except TypeError:
-        assert True
+    with pytest.raises(TypeError):
+        a + 5
